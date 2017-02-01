@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset='UTF-8'>
+    <title>Configuración</title>
+  </head>
+
+  <body>
+    <h1>¡Hola mundo!</h1>
+
+    <p><b>Estado:</b> {test}</p>
+
+    <form action='/' method='POST'>
+      Red:<br>
+      <select name='ssid'>
+        {#redes}
+          <option value='{ssid}'>{ssid}</option>
+        {/redes}
+      </select><br>
+
+      Contraseña:<br>
+      <input type='text' name='pwd'><br><br>
+
+      <input type='submit' value='Conectar'>
+  </form>
+  </body>
+</html>
