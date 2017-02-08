@@ -8,9 +8,6 @@ reles  = 0x20
 uart.setup(0,115200,8,0,1,1)
 i2c.setup(id, sda, scl, i2c.SLOW)
 
-wifi.setmode(wifi.STATION)
-wifi.sta.config('La Patria es el otro','mochila propulsora')
-
 tmr.alarm(0, 5000, tmr.ALARM_SINGLE, function()
   sntp.sync('pool.ntp.org')
 end)
@@ -18,4 +15,6 @@ end)
 --dofile('sensor.lua')
 --dofile('reles.lua')
 --dofile('telnet.lua')
-dofile('http.lua')
+
+-- Enable network configuration within time window
+dofile('config.lua')
