@@ -1,3 +1,4 @@
+-- Start a web server for configuration
 routes = {}
 
 dofile('encoding.lua')
@@ -30,6 +31,7 @@ function error_404(socket)
   socket:close()
 end
 
+-- Leave server global so it can be stopped later
 http_server = net.createServer(net.TCP, 30)
 
 http_server:listen(80, function(socket)

@@ -15,12 +15,14 @@ wifi.ap.setip({
 -- Start wifi module as both AP and Client
 wifi.setmode(wifi.STATIONAP)
 
+-- Wait 10 minutes from boot, and stop related proceses
 local config_window = tmr.create()
 
--- Wait 10 minutes from boot, and stop related proceses
 config_window:register(600000, tmr.ALARM_SINGLE, function(timer)
-  -- TODO Dar de baja el webserver
-  -- TODO Dar de baja el AP
+  -- Set wifi on client mode only
+  wifi.setmode(wifi.STATION)
+  -- Stop the webserver
+  http_server:close()
 end)
 
 -- Start web server and alarm
