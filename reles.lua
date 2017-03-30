@@ -28,22 +28,6 @@ relay.control = function(output, condition)
   end
 end
 
--- Time is in seconds since the epoch, which is UTC so we make
--- a timezone correction in seconds.
-function now()
-  return rtctime.get() + SECS_HOUR * settings.timezone
-end
-
-function = time_condition(module)
-  local now = now() % SECS_DAY -- seconds from midnight
-
-  local start = settings[module].at
-  local stop  = start + settings[module]._for
-
-  -- repeat daily, each 1 day
-  return  start <= now and now < stop or now < stop - SECS_DAY
-end
-
 -- automatically repeating alarm every 500 milliseconds
 outputs = tmr.create()
 

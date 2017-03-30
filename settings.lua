@@ -1,20 +1,21 @@
-SECS_HOUR = 3600
-SECS_MIN  = 60
+MINS  = 60
+HOURS = 60 * MINS
+DAYS  = 24 * HOURS
 
 settings = {
-  timezone = -3,
-  start  = 1490199534, -- 2017/03/22 13:18
+  timezone = -3 * HOURS,
+  start    = 1490199534, -- 2017/03/22 13:18
   lighting = {
-    repeat = 'daily',
-    each   =  1,
-    at     =  8 * SECS_HOUR + 30 * SECS_MIN,
-    for    = 18 * SECS_HOUR
+    --repeat = 'daily',
+    each =  1 * DAYS,
+    at   = 18 * HOURS + 30 * MINS,
+    run  = 12 * HOURS
   },
   watering = {
-    repeat = 'daily',
-    each   = 3,
-    at     = {hour=0},
-    for    = {mins=15}
+    --repeat = 'daily',
+    each =  3 * DAYS,
+    at   = 12 * HOURS,
+    run  =  5 * MINS
   }
 }
 
