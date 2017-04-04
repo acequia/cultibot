@@ -1,6 +1,7 @@
 MINS  = 60
 HOURS = 60 * MINS
 DAYS  = 24 * HOURS
+WEEKS =  7 * DAYS
 
 settings = {
   timezone = -3 * HOURS,
@@ -16,8 +17,23 @@ settings = {
     at     = 12 * HOURS,
     run    =  5 * MINS,
     offset =  0,
+  },
+  ventilation = {
+    sensor = 'temperature',
+    on     = 26,
+    off    = 22,
+  },
+  relays = {
+    {module = 'lighting',    mode = 'auto'},
+    {module = 'irrigation',  mode = 'auto'},
+    {module = 'ventilation', mode = 'auto'},
   }
 }
+
+-- mode
+  -- manual
+  -- semi-auto
+  -- auto
 
 -- repeat
   -- every day
