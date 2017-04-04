@@ -25,16 +25,45 @@ saturday = {
   evening  = 1491087600, -- 2017/04/01 20:00 GMT-03:00
 }
 
--- Lighting
+-- Lighting (case 1)
 
 lighting = {
-  each =  1 * DAYS,  -- daily
-  at   = 12 * HOURS, -- start 12:00
-  run  = 12 * HOURS, -- stop  00:00
+  each   =  1 * DAYS,  -- daily
+  at     = 12 * HOURS, -- start 12:00
+  run    = 12 * HOURS, -- stop  00:00
+  offset =  0,
 }
 
 assert(not time_condition(lighting, wednesday.morning) )
-assert(    time_condition(lighting, wednesday.noon) )
+assert(    time_condition(lighting, wednesday.noon)    )
 assert(    time_condition(lighting, wednesday.evening) )
 assert(not time_condition(lighting, thursday.midnight) )
-assert(    time_condition(lighting, thursday.noon) )
+assert(    time_condition(lighting, thursday.noon)     )
+
+-- Lighting (case 2)
+
+lighting = {
+  each   =  1 * DAYS,  -- daily
+  at     = 20 * HOURS, -- start 20:00
+  run    = 12 * HOURS, -- stop  08:00
+  offset =  0,
+}
+
+assert(    time_condition(lighting, wednesday.morning) )
+assert(not time_condition(lighting, wednesday.noon)    )
+assert(    time_condition(lighting, wednesday.evening) )
+assert(    time_condition(lighting, thursday.midnight) )
+assert(not time_condition(lighting, thursday.noon)     )
+
+-- Irrigation
+
+irrigation = {
+  each   =  3 * DAYS,  -- each 3 days
+  at     = 12 * HOURS, -- start 12:00
+  run    = 15 * MINS,  -- stop  12:15
+  offset = -5 * DAYS,
+}
+
+assert(    time_condition(irrigation, wednesday.noon) )
+assert(not time_condition(irrigation, thursday.noon)  )
+assert(    time_condition(irrigation, saturday.noon)  )

@@ -6,9 +6,9 @@ end
 
 function time_condition(module, time)
   local base  = module.each -- time block to repeat in seconds
-  local now   = time % base -- seconds from midnight
+  local now   = time % base + module.offset -- seconds from midnight
   local start = module.at -- from 00:00:00 to 23:59:59
-  local stop  = start + module.run -- cannot last longer than a day
+  local stop  = start + module.run -- must not last longer than the time block
 
   -- First group corresponds to a task starting and ending the same day,
   -- the second one manages the case of the task going through midnight,
