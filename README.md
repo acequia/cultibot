@@ -8,7 +8,7 @@ Gardening automation done with ESP8266 NodeMCU.
 
 Initial WiFi configuration.
 
-### Clock
+### Clock (RTC)
 
 Uses NTP to get the correct date and time between boots.
 
@@ -23,23 +23,23 @@ Two-wire bus communication protocol.
 
 ### Temperature and humidity sensor
 
-Uses I2C bus.
+Uses the I2C bus or 1-Wire.
 
 ### Relays
 
-Electrical switches for power devices control. Uses I2C bus.
+Electrical switches for power devices control. Uses the I2C bus or GPIOs.
 
-### Watering
+### Irrigation
 
-Scheduled. Uses the clock and a relay.
+Time-controlled. Uses the RTC and a relay.
 
 ### Lighting
 
-Scheduled. Uses the clock and a relay.
+Time-controlled. Uses the RTC and a relay.
 
 ### Ventilation
 
-Sensor controlled (temperature and humidity thresholds). Uses a relay.
+Sensor-controlled (temperature and humidity thresholds). Uses a relay.
 
 ### IoT communication
 
@@ -49,18 +49,11 @@ Requires an internet connection.
 
 ## Limitations
 
+* No internet connection plus reboot leave RTC out of game, time-controlled
+  actuators will not work.
+
 * WiFi password must be longer than 8 characters or it will not connect,
   this problem affects WEP authentication only.
 
 * Initial user config time window at boot lasts 5 minutes, no more,
-no matter what.
-
-## Misc
-
-picocom --escape s --omap crcrlf /dev/ttyUSB0
-
-picocom manda DTR y RTS a GND
-
---omap no es necesario con NodeMCU
-
-esptool.py write_flash 0x00000 bin/0x00000.bin 0x10000 bin/0x10000.bin 0x7c000 ../esp-open-sdk/esp_iot_sdk_v1.5.2/bin/esp_init_data_default.bin
+  no matter what.
