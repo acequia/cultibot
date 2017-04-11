@@ -25,10 +25,12 @@ tmr.alarm(0, 5000, tmr.ALARM_SINGLE, function()
 end)
 
 dofile('settings.lua')
+dofile('am2320.lua')
+dofile('sensors.lua')
+dofile('actuators.lua')
 dofile('time_control.lua')
---dofile('sensor.lua')
---dofile('reles.lua')
---dofile('telnet.lua')
+dofile('sensor_control.lua')
+dofile('relay_control.lua')
 
 -- Enable network configuration within time window
 --dofile('config.lua')

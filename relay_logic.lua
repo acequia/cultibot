@@ -1,18 +1,25 @@
 function relay_logic()
-  for i,relay in ipairs(settings.relays) do
-    local module    = settings[relay.module]
+  local now = now()
+
+  for i, circuit in ipairs(settings.circuits) do
+    local module    = settings[circuit.module]
     local condition = false
 
-    if     module.mode == 'auto' and module.each   then
-      condition = time_condition(module, now())
-    elseif module.mode == 'auto' and module.sensor then
-      condition = sensor_condition(module)
-    elseif module.mode == 'on' then
+    if module.mode == 'auto' then
+      if module.each then -- it is a time-controlled module
+        condition = time_condition(module, now)
+      else -- it is a sensor-controlled module
+        condition = sensor_condition(module)
+      end
+    elseif module.mode == 'on' then -- manual ON
       condition = true
     end
 
-    if condition then on(i) else off(i) end
-
+    if condition then
+      actuators[i]:on()
+    else
+      actuators[i]:off()
+    end
   end
 end
 

@@ -19,14 +19,15 @@ settings = {
     offset =  0,
   },
   ventilation = {
-    sensor = 'temperature',
-    on     = 26,
-    off    = 22,
+    var    = 'temperature',
+    set    = 24,
+    hist   =  2,
+    effect = 'decrease',
   },
-  relays = {
+  circuits = {
     {module = 'lighting',    mode = 'auto'},
     {module = 'irrigation',  mode = 'auto'},
-    {module = 'ventilation', mode = 'auto'},
+    {module = 'ventilation', mode = 'off' },
   }
 }
 
