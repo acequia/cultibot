@@ -25,9 +25,9 @@ settings = {
     effect = 'decrease',
   },
   circuits = {
-    {module = 'lighting',    mode = 'auto'},
-    {module = 'irrigation',  mode = 'auto'},
-    {module = 'ventilation', mode = 'off' },
+    {module = 'lighting',    mode = 'auto', output=5},
+    {module = 'irrigation',  mode = 'auto', output=6},
+    {module = 'ventilation', mode = 'off' , output=7},
   }
 }
 
