@@ -1,5 +1,5 @@
--- Based on a file written by Álvaro Valdebenito.
--- More info at https://github.com/avaldebe/AQmon.
+-- based on a file written by Álvaro Valdebenito
+-- more info at https://github.com/avaldebe/AQmon
 
 function crc(c)
   local s = 0xFFFF
@@ -22,28 +22,28 @@ function crc(c)
 end
 
 function sensor_read()
-  -- Wakeup.
+  -- wakeup
   i2c.start(id)
-  i2c.address(id, sensor, i2c.TRANSMITTER)
+  i2c.address(id, am2320, i2c.TRANSMITTER)
   tmr.delay(800)
   i2c.stop(id)
 
-  -- Request 0x00 to 0x03.
+  -- request 0x00 to 0x03
   i2c.start(id)
-  i2c.address(id, sensor, i2c.TRANSMITTER)
-  -- Write 3 bytes: function code,
-  -- initial address, data length.
+  i2c.address(id, am2320, i2c.TRANSMITTER)
+  -- write 3 bytes: function code,
+  -- initial address, data length
   i2c.write(id, 0x03, 0x00, 0x04)
   i2c.stop(id)
   tmr.delay(1500)
 
-  -- Read 0x00 to 0x03.
+  -- read 0x00 to 0x03
   i2c.start(id)
-  i2c.address(id, sensor, i2c.RECEIVER)
+  i2c.address(id, am2320, i2c.RECEIVER)
   tmr.delay(30)
-  -- Read 8 bytes in total: function code, data length,
+  -- read 8 bytes in total: function code, data length,
   -- humidity MSB, humidity LSB, temperature MSB,
-  -- temperature LSB, checksum LSB, checksum MSB.
+  -- temperature LSB, checksum LSB, checksum MSB
   local c = i2c.read(id, 8)
   i2c.stop(id)
 
@@ -53,7 +53,7 @@ function sensor_read()
     h = c:byte(3) * 256 + c:byte(4)
     t = c:byte(5) * 256 + c:byte(6)
 
-    -- Handle negative temperature.
+    -- handle negative temperature
     if bit.isset(t, 15) then
       t = -bit.band(t, 0x7FFF)
     end

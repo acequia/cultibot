@@ -15,15 +15,11 @@ function relay_logic()
       condition = true
     end
 
-    if condition then
-      actuators[i]:on()
-    else
-      actuators[i]:off()
-    end
+    if condition then io.on(i) else io.off(i) end
   end
 end
 
--- automatically repeating alarm every 500 milliseconds
+-- automatically repeating alarm every 1000 milliseconds
 loop = tmr.create()
-loop:register(500, tmr.ALARM_AUTO, relay_logic)
+loop:register(1000, tmr.ALARM_AUTO, relay_logic)
 loop:start()
