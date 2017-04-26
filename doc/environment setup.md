@@ -83,7 +83,7 @@ Erase flash:
 Flash compiled files (in `nodemcu-firmware/bin`), making sure that the
 reset/GND cable is plugged in, so flashboot mode is enabled:
 
-    esptool.py write_flash 0x00000 bin/0x00000.bin 0x10000 bin/0x10000.bin
+    esptool.py write_flash 0x00000 bin/0x00000.bin 0x10000 bin/0x10000.bin [0x7c000 ../esp-open-sdk/esp_iot_sdk_v1.5.2/bin/esp_init_data_default.bin] <- optional
 
 `esptool.py` uses these defaults:
 
@@ -100,9 +100,15 @@ then unplugg GND.
 
 picocom and luatool
 
-Install picocom to access the integrated Lua repl
+picocom sends DTR and RTS to GND; disconnect these pins if necessary.
+
+Install picocom to access the integrated Lua REPL
 
   picocom -b 115200 /dev/ttyUSB0
+
+Or to access the original firmware
+
+  picocom --omap crcrlf /dev/ttyUSB0
 
 To exit ctrl a, ctrl x
 
