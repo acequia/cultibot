@@ -48,8 +48,6 @@ Add this to path
 
     git clone git@github.com:nodemcu/nodemcu-firmware.git
 
-    make
-
 ## Select Modules
 
 Disable modules you won't be using to reduce firmware size and free up some RAM. The ESP8266 is
@@ -67,6 +65,16 @@ Identify your firmware builds by editing `app/include/user_version.h`
     #ifndef BUILD_DATE
     #define BUILD_DATE      "YYYYMMDD"
     #endif
+
+## Build your build
+
+Optionally clean the build with
+
+    make clean
+
+because they might be conflicting updates. Then
+
+    make
 
 ## Flash it!
 
