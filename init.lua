@@ -8,5 +8,10 @@ dofile('time_control.lua')
 dofile('sensor_control.lua')
 dofile('relay_logic.lua')
 
+test = tmr.create()
+test:register(2000, tmr.ALARM_AUTO, function()
+  print(now())
+end)
+
 -- Enable network configuration within time window
 --dofile('config.lua')

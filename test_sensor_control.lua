@@ -12,6 +12,10 @@ ventilation = {
   effect = 'decrease',
 }
 
+
+t = 'error'
+assert(not sensor_condition(ventilation) )
+
 t = 24
 assert(not sensor_condition(ventilation) )
 t = 25

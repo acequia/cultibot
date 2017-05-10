@@ -34,6 +34,9 @@ lighting = {
   offset =  0,
 }
 
+no_time_available = -wednesday.evening -- some negative value
+assert(not time_condition(lighting, no_time_available) )
+
 assert(not time_condition(lighting, wednesday.morning) )
 assert(    time_condition(lighting, wednesday.noon)    )
 assert(    time_condition(lighting, wednesday.evening) )

@@ -1,5 +1,8 @@
 function sensor_condition(module)
   local measure = sensors[module.var]()
+
+  if type(measure) ~= 'number' then return module.status end
+
   local high    = module.set + module.hist / 2
   local low     = module.set - module.hist / 2
 

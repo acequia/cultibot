@@ -5,6 +5,8 @@ function now()
 end
 
 function time_condition(module, time)
+  if time < 0 then return false end
+
   local base  = module.each -- time block to repeat in seconds
   local now   = time % base + module.offset -- seconds from midnight
   local start = module.at -- from 00:00:00 to 23:59:59
