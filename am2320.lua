@@ -21,7 +21,7 @@ function crc(c)
   return s
 end
 
-function sensor_read()
+function humidity_temperature()
   -- wakeup
   i2c.start(id)
   i2c.address(id, am2320, i2c.TRANSMITTER)
@@ -66,4 +66,16 @@ function sensor_read()
   end
 
   return h, t
+end
+
+sensors = {}
+
+sensors.temperature = function()
+  local h, t = humidity_temperature()
+  return t
+end
+
+sensors.humidity = function()
+  local h, t = humidity_temperature()
+  return h
 end
