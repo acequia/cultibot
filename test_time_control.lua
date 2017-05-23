@@ -1,5 +1,7 @@
 dofile('time_control.lua')
 
+sensors = {}
+
 MINS  = 60
 HOURS = 60 * MINS
 DAYS  = 24 * HOURS
@@ -34,14 +36,23 @@ lighting = {
   offset =  0,
 }
 
-no_time_available = -wednesday.evening -- some negative value
+sensors.time = -wednesday.evening -- some negative value (no time set)
 assert(not time_condition(lighting, no_time_available) )
 
-assert(not time_condition(lighting, wednesday.morning) )
-assert(    time_condition(lighting, wednesday.noon)    )
-assert(    time_condition(lighting, wednesday.evening) )
-assert(not time_condition(lighting, thursday.midnight) )
-assert(    time_condition(lighting, thursday.noon)     )
+sensors.time = wednesday.morning
+assert(not time_condition(lighting) )
+
+sensors.time = wednesday.noon
+assert(    time_condition(lighting) )
+
+sensors.time = wednesday.evening
+assert(    time_condition(lighting) )
+
+sensors.time = thursday.midnight
+assert(not time_condition(lighting) )
+
+sensors.time = thursday.noon
+assert(    time_condition(lighting) )
 
 -- Lighting (case 2)
 
@@ -52,11 +63,20 @@ lighting = {
   offset =  0,
 }
 
-assert(    time_condition(lighting, wednesday.morning) )
-assert(not time_condition(lighting, wednesday.noon)    )
-assert(    time_condition(lighting, wednesday.evening) )
-assert(    time_condition(lighting, thursday.midnight) )
-assert(not time_condition(lighting, thursday.noon)     )
+sensors.time = wednesday.morning
+assert(    time_condition(lighting) )
+
+sensors.time = wednesday.noon
+assert(not time_condition(lighting) )
+
+sensors.time = wednesday.evening
+assert(    time_condition(lighting) )
+
+sensors.time = thursday.midnight
+assert(    time_condition(lighting) )
+
+sensors.time = thursday.noon
+assert(not time_condition(lighting) )
 
 -- Irrigation
 
@@ -67,6 +87,11 @@ irrigation = {
   offset = -5 * DAYS,
 }
 
-assert(    time_condition(irrigation, wednesday.noon) )
-assert(not time_condition(irrigation, thursday.noon)  )
-assert(    time_condition(irrigation, saturday.noon)  )
+sensors.time = wednesday.noon
+assert(    time_condition(irrigation) )
+
+sensors.time = thursday.noon
+assert(not time_condition(irrigation) )
+
+sensors.time = saturday.noon
+assert(    time_condition(irrigation) )
