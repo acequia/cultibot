@@ -110,11 +110,11 @@ picocom and luatool
 
 Install picocom to access the integrated Lua repl
 
-  picocom -b 115200 /dev/ttyUSB0
+    picocom -b 115200 /dev/ttyUSB0
 
-To exit ctrl a, ctrl x
+To exit `ctrl a`, `ctrl x`
 
-  luatool.py -b 115200 -f <archivo>
+    luatool.py -b 115200 -f <archivo>
 
 luatool is in AUR
 
