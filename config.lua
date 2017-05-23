@@ -27,4 +27,3 @@ end)
 
 -- Start web server and alarm
 config_window:start()
-dofile('http.lua')

@@ -1,11 +1,6 @@
 -- Start a web server for configuration
 routes = {}
 
-dofile('encoding.lua')
-dofile('mostacholes.a.lua')
-dofile('mostacholes.b.lua')
-dofile('controllers.lua')
-
 function send(socket)
   local line = r.line()
 
