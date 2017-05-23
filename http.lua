@@ -1,10 +1,5 @@
--- Start a web server for configuration
+-- start a web server for configuration
 routes = {}
-
-dofile('encoding.lua')
-dofile('mostacholes.a.lua')
-dofile('mostacholes.b.lua')
-dofile('controllers.lua')
 
 function send(socket)
   local line = r.line()
@@ -31,15 +26,15 @@ function error_404(socket)
   socket:close()
 end
 
--- Leave server global so it can be stopped later
+-- leave server global so it can be stopped later
 http_server = net.createServer(net.TCP, 30)
 
 http_server:listen(80, function(socket)
   socket:on('receive', function(socket, request)
     print(request)
 
-    local uri = request:match('%S+ %S+')
-    local body = request:match('\r\n\r\n(.*)')
+    local uri    = request:match('%S+ %S+')
+    local body   = request:match('\r\n\r\n(.*)')
     local params = decode(body)
 
     if routes[uri] then routes[uri](socket, params) else error_404(socket) end

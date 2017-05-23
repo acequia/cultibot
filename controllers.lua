@@ -10,7 +10,7 @@ routes['GET /'] = function(socket, params)
 
     table.sort(redes, function(a, b) return a.rssi < b.rssi end)
 
-    status = {
+    status_map = {
       [0]='disponible',
       [1]='conectando...',
       [2]='contraseña inválida',
@@ -19,7 +19,7 @@ routes['GET /'] = function(socket, params)
       [5]='conectado'
     }
 
-    test = status[wifi.sta.status()]
+    status = status_map[wifi.sta.status()]
 
     render(socket, 'index.html')
   end
