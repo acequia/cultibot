@@ -1,14 +1,8 @@
-function now()
-  -- Time is in seconds since the epoch, which is UTC so we make
-  -- a timezone correction in seconds.
-  return rtctime.get() + settings.timezone
-end
-
-function time_condition(module, time)
-  if time < 0 then return false end
+function time_condition(module)
+  if sensors.time < 0 then return false end
 
   local base  = module.each -- time block to repeat in seconds
-  local now   = time % base + module.offset -- seconds from midnight
+  local now   = sensors.time % base + module.offset -- seconds from midnight
   local start = module.at -- from 00:00:00 to 23:59:59
   local stop  = start + module.run -- must not last longer than the time block
 

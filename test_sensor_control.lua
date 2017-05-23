@@ -1,7 +1,6 @@
 dofile('sensor_control.lua')
 
 sensors = {}
-sensors.temperature = function() return t end
 
 -- Ventilation (case 1)
 
@@ -13,26 +12,34 @@ ventilation = {
 }
 
 
-t = 'error'
+sensors.temperature = 'error'
 assert(not sensor_condition(ventilation) )
 
-t = 24
+sensors.temperature = 24
 assert(not sensor_condition(ventilation) )
-t = 25
+
+sensors.temperature = 25
 assert(not sensor_condition(ventilation) )
-t = 26
+
+sensors.temperature = 26
 assert(    sensor_condition(ventilation) )
-t = 25
+
+sensors.temperature = 25
 assert(    sensor_condition(ventilation) )
-t = 24
+
+sensors.temperature = 24
 assert(    sensor_condition(ventilation) )
-t = 23
+
+sensors.temperature = 23
 assert(    sensor_condition(ventilation) )
-t = 22
+
+sensors.temperature = 22
 assert(not sensor_condition(ventilation) )
-t = 23
+
+sensors.temperature = 23
 assert(not sensor_condition(ventilation) )
-t = 24
+
+sensors.temperature = 24
 assert(not sensor_condition(ventilation) )
 
 -- Heating (case 2)
@@ -44,21 +51,29 @@ heating = {
   effect = 'increase',
 }
 
-t = 24
+sensors.temperature = 24
 assert(not sensor_condition(heating) )
-t = 25
+
+sensors.temperature = 25
 assert(not sensor_condition(heating) )
-t = 26
+
+sensors.temperature = 26
 assert(not sensor_condition(heating) )
-t = 25
+
+sensors.temperature = 25
 assert(not sensor_condition(heating) )
-t = 24
+
+sensors.temperature = 24
 assert(not sensor_condition(heating) )
-t = 23
+
+sensors.temperature = 23
 assert(not sensor_condition(heating) )
-t = 22
+
+sensors.temperature = 22
 assert(    sensor_condition(heating) )
-t = 23
+
+sensors.temperature = 23
 assert(    sensor_condition(heating) )
-t = 24
+
+sensors.temperature = 24
 assert(    sensor_condition(heating) )

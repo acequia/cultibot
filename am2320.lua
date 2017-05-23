@@ -67,15 +67,3 @@ function humidity_temperature()
 
   return h, t
 end
-
-sensors = {}
-
-sensors.temperature = function()
-  local h, t = humidity_temperature()
-  return t
-end
-
-sensors.humidity = function()
-  local h, t = humidity_temperature()
-  return h
-end

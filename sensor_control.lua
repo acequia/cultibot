@@ -1,5 +1,5 @@
 function sensor_condition(module)
-  local measure = sensors[module.var]()
+  local measure = sensors[module.var]
 
   if type(measure) ~= 'number' then return module.status end
 

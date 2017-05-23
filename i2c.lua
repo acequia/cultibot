@@ -36,3 +36,15 @@ io.off = function(output)
   io.state = bit.set(io.state, output)
   io.write(io.state)
 end
+
+io.set = function(output, state)
+  if state then -- ON
+    io.state = bit.clear(io.state, output)
+  else -- OFF
+    io.state = bit.set(io.state, output)
+  end
+end
+
+io.update = function()
+  io.write(io.state)
+end
