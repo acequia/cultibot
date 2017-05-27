@@ -9,7 +9,6 @@ pcf8574 = 0x20 -- I/O expander
 i2c.setup(id, sda, scl, i2c.SLOW)
 
 io       = {}
-io.map   = {0x01, 0x02, 0x04, 0x08, 0x10, 0x20, 0x40, 0x80}
 io.state = 0xFF -- off
 
 io.write = function(value)
