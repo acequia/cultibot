@@ -11,6 +11,9 @@ m:on('connect', function(client)
     print('Suscribed!')
   end)
 
+  local _, reset_reason = node.bootreason()
+  client:publish('test_client_123/reset_reason', reset_reason, 1, 0)
+
   pub:start()
 end)
 
