@@ -2,8 +2,8 @@
 
 -- configure AP with default SSID, password and IPs
 wifi.ap.config({
-  ssid = 'Cultibot',
-  pwd  = 'boooooot'
+  ssid = 'Cultibot ' .. node.chipid(),
+  pwd  = '12345678'
 })
 
 wifi.ap.setip({
