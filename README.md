@@ -2,6 +2,8 @@
 
 Gardening automation done with ESP8266 NodeMCU.
 
+![](https://docs.google.com/drawings/d/e/2PACX-1vQxmvvzaOm47SJ_YMYUKL3ff6najC_npl-7eNX_qPAP7vhaxzNxnEbWtcNNmRrU8bgT58jLDCvazDfR/pub?w=301&h=283)
+
 ## Modules
 
 ### User setup
