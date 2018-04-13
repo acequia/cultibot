@@ -1,35 +1,58 @@
 -- MQTT client configuration
 
--- create a client with client_id, keep_alive, user and password
-m = mqtt.Client(node.chipid(), 120, 'test', 'test')
+-- There is a current callbacks issue:
+-- https://github.com/nodemcu/nodemcu-firmware/issues/2109
 
-m:on('connect', function(client)
+-- create a client with client_id, keep_alive, user, password
+m = mqtt.Client(node.chipid(), 120, settings.mqtt.token)
+
+function mqtt_success(client)
   print('Connected!')
+  settings.mqtt.status = mqtt.CONNACK_ACCEPTED
 
-  client:subscribe('bots/'..node.chipid(), 0, function(client)
-    print('Suscribed!')
+  -- subscribe to commands from server; topic, qos, callback
+  client:subscribe(settings.mqtt.topics.rpc..'request/+', 0, function(client)
+    print('SUBSCRIBED', settings.mqtt.topics.rpc..'/request/+')
   end)
 
   local _, reset_reason = node.bootreason()
-  client:publish('bots/'..node.chipid()..'/reset_reason', reset_reason, 1, 0)
+  local message = '{"reset_reason":'..reset_reason..'}'
+
+  client:publish(settings.mqtt.topics.attr, message, 0, 0, function(client)
+    -- TODO: take care of simple MQTT reconnections,
+    -- which aren't resets but are being logged as suches
+    print('SENT', settings.mqtt.topics.attr, message)
+  end)
 
   pub:start()
-end)
+end
+
+function mqtt_failure(client, reason)
+  print('Disconnected!')
+  settings.mqtt.status = reason
+  pub:stop()
+end
+
+-- triggered by wifi event monitor after wifi connection
+function mqtt_connect()
+  -- host, port, secure, autoreconnect, callbacks
+  m:connect(settings.mqtt.host, settings.mqtt.port, 0, 0,
+    mqtt_success, mqtt_failure)
+end
 
 m:on('message', function(client, topic, message)
-  print(topic)
-  print(message)
-end)
+  print('RECV', topic, message)
 
-m:on('offline', function(client)
-  print('Disconnected!')
+  -- publish RPC responses to
+  -- v1/devices/me/rpc/response/$request_id
 end)
 
 -- automatically repeating alarm every minute
 pub = tmr.create()
 pub:register(60000, tmr.ALARM_AUTO, function()
-  -- publish a message with topic name, message, QoS = 1, retain = 0
-  m:publish('bots/'..node.chipid()..'/temperature', sensors.temperature, 1, 0)
-  m:publish('bots/'..node.chipid()..'/humidity',    sensors.humidity   , 1, 0)
-  m:publish('bots/'..node.chipid()..'/io',          io.state           , 1, 0)
+  local message = '{"temperatura":'..sensors.temperature..',"humedad":'..sensors.humidity..'}'
+  -- publish a message with topic name, message, qos, retain, callback
+  m:publish(settings.mqtt.topics.tele, message, 0, 0, function(client)
+    print('SENT', settings.mqtt.topics.tele, message)
+  end)
 end)
