@@ -1,9 +1,9 @@
-MINS  = 60
+MINS  = 60 -- seconds
 HOURS = 60 * MINS
 DAYS  = 24 * HOURS
 WEEKS =  7 * DAYS
 
-settings = {
+conf = {
   mqtt = {
     token = 'P90XTznXr5qUKbGlisrL',
     host  = 'demo.thingsboard.io',
@@ -14,23 +14,36 @@ settings = {
       rpc  = 'v1/devices/me/rpc',
     },
   },
+  i2c = {
+    id  = 0,
+    sda = 3, -- GPIO 0
+    scl = 4, -- GPIO 2
+  },
   wifi = {
-    ssid = 'Patria si colonia no',
+    ssid = 'La Patria es el otro',
     pwd  = 'mochila propulsora',
   },
-  timezone = -3 * HOURS,
-  start    = 1490199534, -- 2017/03/22 13:18 GMT-03:00
-  lighting = {
+  time = {
+    timezone = -3 * HOURS,
+    start    = 1490199534, -- 2017/03/22 13:18 GMT-03:00
+  },
+  vegetative = {
+    var    = 'time',
     each   =  1 * DAYS,
-    at     =  9 * HOURS + 0 * MINS,
+    at     = 18 * HOURS,
+    run    = 18 * HOURS,
+  },
+  flowering = {
+    var    = 'time',
+    each   =  1 * DAYS,
+    at     =  0 * HOURS,
     run    = 12 * HOURS,
-    offset =  0,
   },
   irrigation = {
+    var    = 'time',
     each   =  1 * DAYS,
     at     = 18 * HOURS,
     run    =  5 * MINS,
-    offset =  0,
   },
   ventilation = {
     var    = 'temperature',
@@ -39,9 +52,9 @@ settings = {
     effect = 'decrease',
   },
   circuits = {
-    {module = 'lighting',    mode = 'auto', output=4},
-    {module = 'irrigation',  mode = 'auto', output=5},
-    {module = 'lighting',    mode = 'auto', output=6},
+    {module = 'vegetative',  mode = 'auto',   state = false, output = 5},
+    {module = 'irrigation',  mode = 'manual', state = false, output = 6},
+    {module = 'ventilation', mode = 'auto',   state = false, output = 7},
   }
 }
 

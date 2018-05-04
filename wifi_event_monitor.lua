@@ -1,5 +1,6 @@
 wifi.eventmon.register(wifi.eventmon.STA_GOT_IP, function(T)
-  print('Got IP')
+  local ip = wifi.sta.getip()
+  print('Got IP', ip)
 
   sntp.sync('pool.ntp.org',
             function(sec, usec, server, info)

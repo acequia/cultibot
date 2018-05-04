@@ -1,4 +1,4 @@
-wifi.sta.config(settings.wifi)
+wifi.sta.config(conf.wifi)
 
 -- manages the time window during which bot configuration is posible
 

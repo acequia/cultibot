@@ -1,19 +1,15 @@
 function relay_logic()
   sensors.update()
 
-  for _, circuit in pairs(settings.circuits) do
-    local module = settings[circuit.module]
+  for _, circuit in pairs(conf.circuits) do
+    local module = conf[circuit.module]
 
     if circuit.mode == 'auto' then
-      if module.each then -- it is a time-controlled module
-        io.set(circuit.output, time_condition(module))
+      if module.var == 'time' then -- it is a time-controlled module
+        circuit.state = time_condition(circuit)
       else -- it is a sensor-controlled module
-        io.set(circuit.output, sensor_condition(module))
+        circuit.state = sensor_condition(circuit)
       end
-    elseif circuit.mode == 'on' then -- manual ON
-      io.set(circuit.output, true)
-    else -- manual OFF
-      io.set(circuit.output, false)
     end
   end
 

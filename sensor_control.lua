@@ -1,10 +1,11 @@
-function sensor_condition(module)
+function sensor_condition(circuit)
+  local module  = conf[circuit.module]
   local measure = sensors[module.var]
 
-  if type(measure) ~= 'number' then return module.status end
+  if type(measure) ~= 'number' then return circuit.state end
 
-  local high    = module.set + module.hist / 2
-  local low     = module.set - module.hist / 2
+  local high = module.set + module.hist / 2
+  local low  = module.set - module.hist / 2
 
   -- Sensor control features a simple hysteresis cycle for two use cases:
   --
@@ -16,18 +17,18 @@ function sensor_condition(module)
   -- above the high threshold and go on below the low threshold.
 
   if module.effect == 'decrease' then
-    if module.status then -- on
-      if measure < low  then module.status = false end
+    if circuit.state then -- on
+      if measure < low  then return false end
     else -- off
-      if measure > high then module.status = true  end
+      if measure > high then return true  end
     end
-  else -- effect == 'increase'
-    if module.status then -- on
-      if measure > high then module.status = false end
+  elseif module.effect == 'increase' then
+    if circuit.state then -- on
+      if measure > high then return false end
     else -- off
-      if measure < low  then module.status = true  end
+      if measure < low  then return true  end
     end
   end
 
-  return module.status
+  return circuit.state
 end

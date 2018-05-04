@@ -1,8 +1,10 @@
-function time_condition(module)
+function time_condition(circuit)
+  local module = conf[circuit.module]
+
   if sensors.time < 0 then return false end
 
   local base  = module.each -- time block to repeat in seconds
-  local now   = sensors.time % base + module.offset -- seconds from midnight
+  local now   = sensors.time % base -- seconds from midnight
   local start = module.at -- from 00:00:00 to 23:59:59
   local stop  = start + module.run -- must not last longer than the time block
 

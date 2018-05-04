@@ -1,12 +1,8 @@
-id  = 0
-sda = 3 -- GPIO 0
-scl = 4 -- GPIO 2
-
 -- 7bit addresses
 am2320  = 0x5C -- humidity and temperature sensor
 pcf8574 = 0x20 -- I/O expander
 
-i2c.setup(id, sda, scl, i2c.SLOW)
+i2c.setup(settings.i2c.id, settings.i2c.sda, settings.i2c.scl, i2c.SLOW)
 
 io       = {}
 io.state = 0xFF -- off

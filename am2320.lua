@@ -23,29 +23,29 @@ end
 
 function humidity_temperature()
   -- wakeup
-  i2c.start(id)
-  i2c.address(id, am2320, i2c.TRANSMITTER)
+  i2c.start(conf.i2c.id)
+  i2c.address(conf.i2c.id, am2320, i2c.TRANSMITTER)
   tmr.delay(800)
-  i2c.stop(id)
+  i2c.stop(conf.i2c.id)
 
   -- request 0x00 to 0x03
-  i2c.start(id)
-  i2c.address(id, am2320, i2c.TRANSMITTER)
+  i2c.start(conf.i2c.id)
+  i2c.address(conf.i2c.id, am2320, i2c.TRANSMITTER)
   -- write 3 bytes: function code,
   -- initial address, data length
-  i2c.write(id, 0x03, 0x00, 0x04)
-  i2c.stop(id)
+  i2c.write(conf.i2c.id, 0x03, 0x00, 0x04)
+  i2c.stop(conf.i2c.id)
   tmr.delay(1500)
 
   -- read 0x00 to 0x03
-  i2c.start(id)
-  i2c.address(id, am2320, i2c.RECEIVER)
+  i2c.start(conf.i2c.id)
+  i2c.address(conf.i2c.id, am2320, i2c.RECEIVER)
   tmr.delay(30)
   -- read 8 bytes in total: function code, data length,
   -- humidity MSB, humidity LSB, temperature MSB,
   -- temperature LSB, checksum LSB, checksum MSB
-  local c = i2c.read(id, 8)
-  i2c.stop(id)
+  local c = i2c.read(conf.i2c.id, 8)
+  i2c.stop(conf.i2c.id)
 
   local h, t
 
